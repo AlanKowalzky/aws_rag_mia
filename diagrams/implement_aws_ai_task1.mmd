@@ -1,0 +1,41 @@
+graph TD
+    A[Start] --> B{Faza 1: Inicjalizacja};
+
+    B --> C[1.1 Wybór stosu tech.];
+    C --> D[1.2 Konfiguracja środowiska];
+
+    D --> E{Faza 2: Przygotowanie i Wektoryzacja Danych};
+
+    E --> F[2.1 Pozyskiwanie i przetwarzanie dok.];
+    F --> G[2.2 Podział na fragmenty (Chunking)];
+    G --> H[2.3 Tworzenie osadzeń (Embeddings)];
+    H --> I[2.4 Przechowywanie w ChromaDB];
+
+    I --> J{Faza 3: Integracja z LLM};
+
+    J --> K[3.1 Konfiguracja LLM];
+    K --> L[3.2 Tworzenie szablonu monitu];
+    L --> M[3.3 Budowa rurociągu RAG];
+
+    M --> N{Faza 4: API i Interfejs};
+
+    N --> O[4.1 Interfejs API REST (FastAPI)];
+    O --> P[4.2 Prosty interfejs (CLI/Web)];
+
+    P --> Q{Faza 5: Optymalizacja i Monitorowanie (Bonus)};
+
+    Q --> R[5.1 Buforowanie (Redis)];
+    R --> S[5.2 Metryki i Rejestrowanie];
+
+    S --> T{Faza 6: Testowanie i Walidacja};
+
+    T --> U[6.1 Testy jednostkowe i integracyjne (Pytest)];
+    U --> V[6.2 Testowanie danych];
+
+    V --> W{Faza 7: Dokumentacja i Prezentacja};
+
+    W --> X[7.1 Dokumentacja kodu];
+    X --> Y[7.2 Prezentacja (wideo)];
+    Y --> Z[7.3 Wdrożenie i link do aplikacji];
+
+    Z --> AA[End];

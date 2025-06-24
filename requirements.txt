@@ -1,0 +1,12 @@
+langchain
+langchain-openai
+langchain-community
+sentence-transformers
+
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+tqdm # Przydatne do pokazywania pasków postępu
+faiss-cpu
+tiktoken

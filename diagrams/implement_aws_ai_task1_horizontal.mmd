@@ -1,0 +1,31 @@
+graph LR
+    START([Start]) --> A1
+    START --> B1
+
+    %% LEWA KOLUMNA — Fazy 1–4
+    subgraph Fazy_1_4["Fazy 1–4"]
+        A1["1.1 Wybór stosu tech."] --> A2["1.2 Konfiguracja środowiska"]
+        A2 --> A3["2.1 Pozyskiwanie i przetwarzanie dok."]
+        A3 --> A4["2.2 Podział na fragmenty \"Chunking\""]
+        A4 --> A5["2.3 Tworzenie osadzeń \"Embeddings\""]
+        A5 --> A6["2.4 Przechowywanie w ChromaDB"]
+        A6 --> A7["3.1 Konfiguracja LLM"]
+        A7 --> A8["3.2 Tworzenie szablonu monitu"]
+        A8 --> A9["3.3 Budowa rurociągu RAG"]
+        A9 --> A10["4.1 Interfejs API REST \"FastAPI\""]
+        A10 --> A11["4.2 Prosty interfejs \"CLI/Web\""]
+    end
+
+    %% PRAWA KOLUMNA — Fazy 5–7
+    subgraph Fazy_5_7["Fazy 5–7"]
+        B1["5.1 Buforowanie \"Redis\""] --> B2["5.2 Metryki i Rejestrowanie"]
+        B2 --> B3["6.1 Testy jednostkowe i integracyjne \"Pytest\""]
+        B3 --> B4["6.2 Testowanie danych"]
+        B4 --> B5["7.1 Dokumentacja kodu"]
+        B5 --> B6["7.2 Prezentacja \"wideo\""]
+        B6 --> B7["7.3 Wdrożenie i link do aplikacji"]
+    end
+
+    %% KOŃCZENIE
+    A11 --> END([End])
+    B7 --> END

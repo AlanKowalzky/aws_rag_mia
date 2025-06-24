@@ -1,0 +1,13 @@
+# Środowisko wirtualne
+venv/
+
+# Pliki konfiguracyjne
+.env
+
+# Dane i baza wektorowa
+data/
+db/
+digrams/
+data/
+req_*
+faiss_index/
