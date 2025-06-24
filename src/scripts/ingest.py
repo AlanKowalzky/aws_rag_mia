@@ -1,9 +1,10 @@
 import logging
 
+from tqdm import tqdm
 from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
 
 from src import config
 from src.data_loader import load_mia_documents
@@ -34,11 +35,25 @@ def main():
     logging.info(f"Podzielono {len(documents)} dokumentów na {len(chunks)} chunków.")
 
     # 3. Zainicjuj model do tworzenia embeddingów
-    embeddings = HuggingFaceEmbeddings(model_name=config.EMBEDDING_MODEL_NAME)
+    embeddings = HuggingFaceEmbeddings(
+        model_name=config.EMBEDDING_MODEL_NAME,
+        model_kwargs={'device': 'cpu'}  # Jawne określenie użycia CPU
+    )
 
     # 4. Stwórz bazę wektorową FAISS i zapisz ją lokalnie
     logging.info("Tworzenie embeddingów i budowanie indeksu FAISS. To może potrwać kilka minut...")
-    db = FAISS.from_documents(chunks, embeddings)
+
+    db = None
+    batch_size = 64  # Przetwarzaj w partiach po 64 dokumenty
+    for i in tqdm(range(0, len(chunks), batch_size), desc="Tworzenie indeksu FAISS"):
+        batch_chunks = chunks[i:i + batch_size]
+        if db is None:
+            # Stwórz bazę danych z pierwszej partii
+            db = FAISS.from_documents(documents=batch_chunks, embedding=embeddings)
+        else:
+            # Dodaj kolejne partie do istniejącej bazy
+            db.add_documents(documents=batch_chunks)
+
     db.save_local(config.FAISS_INDEX_PATH)
     logging.info(f"Baza wektorowa została pomyślnie zapisana w folderze: {config.FAISS_INDEX_PATH}")
 

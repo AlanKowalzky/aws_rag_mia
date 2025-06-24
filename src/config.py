@@ -16,9 +16,5 @@ EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 # Konfiguracja dzielenia tekstu na fragmenty (chunki)
 CHUNK_SIZE = 750
 CHUNK_OVERLAP = 75
-
 # Konfiguracja modelu LLM
 LLM_MODEL_NAME = "gemini-1.5-flash"
-# Konfiguracja dzielenia tekstu na fragmenty (chunki)
-CHUNK_SIZE = 750 
-CHUNK_OVERLAP = 75

@@ -1,0 +1,39 @@
+name: Build FAISS Vector Index
+
+on:
+  # Uruchamiaj workflow ręcznie z zakładki Actions w GitHub
+  workflow_dispatch:
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download and prepare dataset
+        run: |
+          # Utwórz strukturę folderów, której oczekuje skrypt
+          mkdir -p data/collection
+          # Pobierz repozytorium z danymi jako ZIP
+          curl -L https://github.com/artsmia/collection/archive/refs/heads/main.zip -o collection.zip
+          # Rozpakuj i przenieś folder 'objects' we właściwe miejsce
+          unzip collection.zip
+          mv collection-main/objects data/collection/
+
+      - name: Run ingestion script to build FAISS index
+        run: python -m src.scripts.ingest
+
+      - name: Upload FAISS index as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: faiss-index-artifact
+          path: faiss_index/

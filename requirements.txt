@@ -1,7 +1,9 @@
 langchain
 langchain-openai
 langchain-community
+langchain-google-genai
 sentence-transformers
+langchain-huggingface
 
 fastapi
 uvicorn[standard]
